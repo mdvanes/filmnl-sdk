@@ -1,0 +1,23 @@
+{
+  "name": "@mdworld/filmnl-sdk",
+  "version": "1.0.0",
+  "description": "TypeScript SDK to query film.nl",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/filmnl-sdk.js",
+      "require": "./dist/cjs/filmnl-sdk.js"
+    }
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
+  "scripts": {
+    "test": "ts-node --esm demo.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}

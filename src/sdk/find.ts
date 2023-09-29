@@ -2,6 +2,7 @@ import got from "got";
 import * as htmlparser2 from "htmlparser2";
 import * as cheerio from "cheerio";
 import { ROOT_URL } from "./constants.js";
+import { getPostOptions } from "./util.js";
 
 export interface FindResult {
   title: string;
@@ -16,13 +17,10 @@ export interface FindResult {
  */
 export const find = async (keyword: string): Promise<FindResult[]> => {
   const body = `query=${keyword}`;
-  const response = await got.post(`${ROOT_URL}/search/find`, {
-    body,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Content-Length": body.length.toString(),
-    },
-  });
+  const response = await got.post(
+    `${ROOT_URL}/search/find`,
+    getPostOptions(body)
+  );
 
   const dom = htmlparser2.parseDocument(response.body);
 

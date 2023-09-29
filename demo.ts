@@ -1,4 +1,4 @@
-import { getProviders, findSuggestion, find } from "./src/filmnl-sdk.js";
+import { getProviders, find } from "./src/filmnl-sdk.js";
 import chalk from "chalk";
 
 const assertFindBlast = async () => {
@@ -45,11 +45,6 @@ const assertGetProviders = async () => {
 };
 
 const run = async () => {
-  //   const result = await getItemById("captain-america-the-first-avenger");
-  //   console.log(result);
-
-  // await findSuggestion("captain");
-
   await assertFindBlast();
   await assertFindBlastFromThePast();
   await assertGetProviders();

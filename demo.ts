@@ -1,4 +1,4 @@
-import { getProviders, find } from "./src/filmnl-sdk.js";
+import { getProviders, find, getMyProviders } from "./src/filmnl-sdk.js";
 import chalk from "chalk";
 
 const assertFindBlast = async () => {
@@ -44,10 +44,33 @@ const assertGetProviders = async () => {
   expect("length", providersResult.providers.length, 3);
 };
 
+const assertMyProviders = async () => {
+  const myProviders = ["Amazon Prime", "Netflix", "Disney+"];
+
+  const providersResult = await getMyProviders(
+    "film/blast-from-the-past",
+    myProviders
+  );
+  expect("length", providersResult.providers.length, 1);
+
+  const providersResult1 = await getMyProviders(
+    "film/captain-america-civil-war",
+    myProviders
+  );
+  expect("length", providersResult1.providers.length, 2);
+
+  const providersResult2 = await getMyProviders(
+    "film/star-trek-enterprise",
+    myProviders
+  );
+  expect("length", providersResult2.providers.length, 1);
+};
+
 const run = async () => {
   await assertFindBlast();
   await assertFindBlastFromThePast();
   await assertGetProviders();
+  await assertMyProviders();
 
   const findResult = await find("blast from the past");
   console.info(chalk.yellow("findResult:"), findResult[0]);

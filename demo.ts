@@ -33,6 +33,17 @@ const assertFindBlastFromThePast = async () => {
   expect("href", findResult[0].href, "film/blast-from-the-past");
 };
 
+const assertGetProviders = async () => {
+  const providersResult = await getProviders("film/blast-from-the-past");
+
+  expect(
+    "trailerHref",
+    providersResult.trailerHref,
+    "https://www.youtube.com/watch?v=Xq29uTtKW4M"
+  );
+  expect("length", providersResult.providers.length, 3);
+};
+
 const run = async () => {
   //   const result = await getItemById("captain-america-the-first-avenger");
   //   console.log(result);
@@ -41,6 +52,7 @@ const run = async () => {
 
   await assertFindBlast();
   await assertFindBlastFromThePast();
+  await assertGetProviders();
 
   const findResult = await find("blast from the past");
   console.info(chalk.yellow("findResult:"), findResult[0]);

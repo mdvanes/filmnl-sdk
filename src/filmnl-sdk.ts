@@ -5,15 +5,48 @@ import * as cheerio from "cheerio";
 
 const ROOT_URL = "https://www.film.nl";
 
-export const getMovie = async (id: string): Promise<string> => {
-  const response = await got(`${ROOT_URL}/film/${id}`);
-  //   console.log(response.body);
+interface Provider {
+  name?: string;
+  href?: string;
+}
+
+interface Providers {
+  title: string;
+  trailerHref?: string;
+  providers: Provider[];
+}
+
+/**
+ * Get the providers where you can view this movie or tv show.
+ * @param href String href has shape /film/my-movie or /serie/my-tv-show and can be retrieved with `find()`
+ * @returns
+ */
+export const getProviders = async (href: string): Promise<Providers> => {
+  const response = await got(`${ROOT_URL}/${href}`);
   const { body } = response;
   const dom = htmlparser2.parseDocument(body);
-  console.log(dom.children);
-  return "a";
+
+  const $ = cheerio.load(dom);
+  const listItems = $(".provider");
+
+  const providers = listItems.toArray().map<Provider>((listItem) => {
+    const providerlink = $(listItem).find(".providerlink");
+    return {
+      name: providerlink.data("retailer")?.toString(),
+      href: providerlink.attr("href")?.toString(),
+    };
+  });
+
+  const trailerHref = $(".trailer").data("href");
+
+  return {
+    title: $("h1.hidemobile").text(),
+    trailerHref: trailerHref
+      ? `https://www.youtube.com/watch?v=${trailerHref}`
+      : undefined,
+    providers,
+  };
 };
-// also getTvShow -> /serie/friends-2
 
 export const findSuggestion = async (keyword: string): Promise<string> => {
   const body = `query=${keyword}`;

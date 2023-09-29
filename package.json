@@ -1,7 +1,7 @@
 {
   "name": "@mdworld/filmnl-sdk",
   "version": "1.0.0",
-  "description": "TypeScript SDK to query film.nl",
+  "description": "Unofficial TypeScript SDK to query film.nl",
   "type": "module",
   "exports": {
     ".": {
@@ -15,8 +15,11 @@
   "scripts": {
     "test": "ts-node --esm demo.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "M.D. van Es",
+  "repository": {
+    "url": "https://github.com/mdvanes/filmnl-sdk"
+  },
+  "license": "CC0-1.0",
   "devDependencies": {
     "chalk": "^5.3.0",
     "ts-node": "^10.9.1"

@@ -1,14 +1,17 @@
 # filmnl-sdk
 
-Unoffical SDK to query film.nl implemented in TypeScript.
+Unoffical SDK to query [film.nl](https://film.nl) implemented in TypeScript.
 
 Disclaimer: I am not associated with film.nl or any of the providers, cinemas, streaming platforms. I do not own, control or promote any of the data that is returned by this SDK.
 
 # Usage
 
+Install with `npm i @mdworld/filmnl-sdk`
+
 Get all the movies or tv shows that film.nl has with the keyword "blast":
 
 ```ts
+import {find} from '@mdworld/filmnl-sdk';
 await find("blast from the past");
 /*
 [
@@ -26,6 +29,7 @@ await find("blast from the past");
 Get all the providers according to film.nl for a movie by the unique href as returned by `find()`:
 
 ```ts
+import {getProviders} from '@mdworld/filmnl-sdk';
 await getProviders("film/blast-from-the-past");
 /*
 {
